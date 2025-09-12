@@ -261,7 +261,7 @@ if os.WEXITSTATUS(os.system(taxdistro)) == 1:
 #There's nothing to redirect as a log here.
 print ('Fixing FASTA headers (removing problematic characters, reversing assembly and sequence accessions).')
 #Originally was using cp with the new extensions and in-place editing, but after testing, runtime is 1/3 with this command, plus slightly lower peak memory consumption.
-headerfix = str('mkdir ' + args.concatenation + '_faafixedheaders && cd ' + args.concatenation + '_faafixedheaders && for i in ../' + args.concatenation + '_seqtk/*.faaoriginal ; do perl -p -e \'s/\\(/ /g\' "$i" | perl -p -e \'s/\\)/ /g\' | perl -p -e \'s/\\;/ /g\' | perl -p -e \'s/\\:/ /g\' | perl -p -e \'s/\\,/ /g\' | perl -p -e \'s/>(.*?) (.*?) (.*)/>$2 $1 $3/g\' >> "$(basename $i .faaoriginal)".faafixedheaders ; done')
+headerfix = str('mkdir ' + args.concatenation + '_faafixedheaders && cd ' + args.concatenation + '_faafixedheaders && for i in ../' + args.concatenation + '_seqtk/*.faaoriginal ; do perl -p -e \'s/\\(/ /g\' "$i" | perl -p -e \'s/\\)/ /g\' | perl -p -e \'s/\\;/ /g\' | perl -p -e \'s/\\:/ /g\' | perl -p -e \'s/\\,/ /g\' | perl -p -e \'s/\t/ /g\' | perl -p -e \'s/>(.*?) (.*?) (.*)/>$2 $1 $3/g\' >> "$(basename $i .faaoriginal)".faafixedheaders ; done')
 if os.WEXITSTATUS(os.system(headerfix)) == 1:
     print('Error when fixing FASTA headers. Exiting.')
     sys.exit(1)
