@@ -70,7 +70,7 @@ with open(sys.argv[1], 'r') as intree:
         #Check if the current file data contains the support value
         support_str = f"{support[0]}/{support[1]}"
         if support_str in filedata:
-            if numerator >= 95 and denominator >= 80:
+            if numerator >= 80 and denominator >= 95:
                 #Replace supports of ultra-fast bootstrap that are >=95 and aLRT-SH >= 80 with 1
                 filedata = filedata.replace(support_str, "1", 1)
             else:
